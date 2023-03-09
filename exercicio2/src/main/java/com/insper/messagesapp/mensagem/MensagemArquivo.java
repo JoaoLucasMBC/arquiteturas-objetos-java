@@ -16,8 +16,9 @@ public class MensagemArquivo extends Mensagem{
     @NonNull
     private String caption;
 
-    public MensagemArquivo(User user, LocalDateTime time, String title, String filePath, String caption) {
-        super(user, time, title);
+    public MensagemArquivo(String userId, String title, String filePath, String caption) {
+        super(userId, title);
+        this.setTime(LocalDateTime.now());
         this.filePath = filePath;
         this.caption = caption;
     }

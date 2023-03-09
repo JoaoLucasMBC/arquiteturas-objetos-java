@@ -2,6 +2,7 @@ package com.insper.messagesapp.mensagem;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.insper.messagesapp.user.User;
 
 import jakarta.validation.constraints.NotEmpty;
@@ -18,11 +19,11 @@ public class Mensagem {
     private String id;
 
     @NonNull
-    @NotNull
-    @NotEmpty
+    private String userId;
+
+    @JsonIgnore
     private User user;
-    
-    @NonNull
+
     private LocalDateTime time;
     
     @NonNull

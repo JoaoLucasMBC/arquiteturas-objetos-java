@@ -2,6 +2,7 @@ package com.insper.messagesapp.mensagem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,12 +41,13 @@ public class MensagemService {
     }
 
     public Mensagem postMensagem(Mensagem mensagem) {
-        String id = mensagem.getUser().getId();
-        User user = userService.buscarUser(id);
+        User user = userService.buscarUser(mensagem.getUserId());
 
         if (user != null) {
+            mensagem.setId(UUID.randomUUID().toString());
             user.postMensagem(mensagem);
             mensagens.add(mensagem);
+            mensagem.setUser(user);
             return mensagem;
         }
 

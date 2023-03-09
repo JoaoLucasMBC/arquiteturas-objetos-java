@@ -13,8 +13,9 @@ public class MensagemTexto extends Mensagem {
     @NonNull
     private String texto;
 
-    public MensagemTexto(User user, LocalDateTime time, String title, String texto) {
-        super(user, time, title);
+    public MensagemTexto(String userId, String title, String texto) {
+        super(userId, title);
+        this.setTime(LocalDateTime.now());
         this.texto = texto;
     }
 }
