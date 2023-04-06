@@ -44,7 +44,6 @@ public class Game {
         Game game = (Game) o;
 
         if (id != null ? !id.equals(game.id) : game.id != null) return false;
-        if (identifier != null ? !identifier.equals(game.identifier) : game.identifier != null) return false;
         return true;
     }
 

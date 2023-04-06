@@ -105,7 +105,7 @@ public class BetControllerTests {
         Mockito.when(betService.verifyBet(bet.getId())).thenReturn(bet);
 
         MvcResult result = mockMvc
-                .perform(MockMvcRequestBuilders.put("/bet")
+                .perform(MockMvcRequestBuilders.put("/bet/1/verify")
                         .contentType("application/json")
                         .content(new ObjectMapper().writeValueAsString(bet)))
                 .andExpect(MockMvcResultMatchers.status().isOk())

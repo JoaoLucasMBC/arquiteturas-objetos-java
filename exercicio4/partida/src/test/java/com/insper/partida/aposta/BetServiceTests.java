@@ -1,5 +1,7 @@
 package com.insper.partida.aposta;
 
+import com.insper.partida.equipe.Team;
+import com.insper.partida.game.Game;
 import com.insper.partida.game.GameService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -35,6 +37,14 @@ public class BetServiceTests {
         bet.setResult(BetResult.HOME);
         bet.setStatus(BetStatus.WON);
 
+        Game game = new Game();
+        game.setHome(new Team());
+        game.setAway(new Team());
+        game.setIdentifier("game-1");
+
+        bet.setGame(game);
+
+        Mockito.when(gameService.getGame("game-1")).thenReturn(game);
         Mockito.when(betRespository.save(bet)).thenReturn(bet);
 
         Bet resp = betService.saveBet(bet);
@@ -54,6 +64,7 @@ public class BetServiceTests {
         bet.setStatus(BetStatus.WON);
 
         List<Bet> bets = new ArrayList<>();
+        bets.add(bet);
 
         Mockito.when(betRespository.findAll()).thenReturn(bets);
 
@@ -69,11 +80,22 @@ public class BetServiceTests {
         bet.setResult(BetResult.HOME);
         bet.setStatus(BetStatus.WON);
 
+        Game game = new Game();
+        game.setHome(new Team());
+        game.setAway(new Team());
+        game.setScoreHome(1);
+        game.setScoreAway(0);
+        game.setIdentifier("game-1");
+
+        bet.setGame(game);
+
         Mockito.when(betRespository.findById(1)).thenReturn(Optional.of(bet));
 
         Bet resp = betService.verifyBet(1);
 
         Assertions.assertEquals(BetStatus.WON, resp.getStatus());
+        Assertions.assertEquals(BetResult.HOME, resp.getResult());
+        Assertions.assertEquals(bet, resp);
     }
 
 
